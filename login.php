@@ -4,22 +4,30 @@
 	if (isset($_POST['submit'])) {
 		$email = $_POST['email'];
 		$password = $_POST['password'];
-		echo $email;
-		echo $password;
+		$username = $_POST['userName'];
+		// echo $email;
+		// echo $password;
 
 		$connection = mysqli_connect('localhost', 'root', '', 'mydatabase');
 
-		$query = 'SELECT * FROM users;';
+		
 
 		if ($connection) {
-			$query_result = mysqli_query($connection, $query);
-			if ($query_result) {
-				$data_array = mysqli_fetch_array($query_result);
-				echo 'Hello '.$data_array['user_name'].'! Your email is '. $data_array['email'].' and your password is '.$data_array['password'];
-			}
+			echo "Database is connected";
+
+			
 		} else {
-			die('Connection faild');
+			die('Connection failed');
 		}	
+
+		$query = "INSERT INTO users (id, user_name, email, password) VALUES ('$username', '$email', 'password');";
+
+		$query_result = mysqli_query($connection, $query);
+
+		if (!$query_result) {
+			die('Query failed '.mysqli_error());
+		}
+
 
 	}
 
@@ -42,6 +50,11 @@
   </head>
   <body>
     <form action="login.php" method="post">
+      <div class="mb-3">
+	    <label for="exampleInputUserName1" class="form-label">User Name</label>
+	    <input type="text" class="form-control" name="userName" id="exampleInputUserName1" aria-describedby="nameHelp" placeholder="Enter your name">
+	    <div id="nameHelp" class="form-text">We'll never share your email with anyone else.
+	  </div>	
 	  <div class="mb-3">
 	    <label for="exampleInputEmail1" class="form-label">Email address</label>
 	    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp">
