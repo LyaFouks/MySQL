@@ -8,8 +8,15 @@
 		echo $password;
 
 		$connection = mysqli_connect('localhost', 'root', '', 'mydatabase');
+
+		$query = 'SELECT * FROM users;';
+
 		if ($connection) {
-			echo "Database is connected";
+			$query_result = mysqli_query($connection, $query);
+			if ($query_result) {
+				$data_array = mysqli_fetch_array($query_result);
+				echo 'Hello '.$data_array['user_name'].'! Your email is '. $data_array['email'].' and your password is '.$data_array['password'];
+			}
 		} else {
 			die('Connection faild');
 		}	
