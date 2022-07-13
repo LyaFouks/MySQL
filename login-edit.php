@@ -12,11 +12,11 @@
 		$update_query = "UPDATE users SET user_name = '$username', email = '$email',  password = '$password' WHERE id = $id";
 
 
-		$update_query = 'UPDATE users SET'; 
-		$update_query .= " user_name = '$username',";
-		$update_query .= " email = '$email',";
-		$update_query .= " password = '$password'";
-		$update_query .= " WHERE id = $id";
+		// $update_query = 'UPDATE users SET'; 
+		// $update_query .= " user_name = '$username',";
+		// $update_query .= " email = '$email',";
+		// $update_query .= " password = '$password'";
+		// $update_query .= " WHERE id = $id";
 		
 		$update_query_result = mysqli_query($connection, $update_query);
 
