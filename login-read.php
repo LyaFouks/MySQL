@@ -1,20 +1,9 @@
 <?php
 
 
-	
+	include "db-connection.php";
 		
 
-		$connection = mysqli_connect('localhost', 'root', '', 'mydatabase');
-
-		
-
-		if ($connection) {
-			echo "Database is connected";
-
-			
-		} else {
-			die('Connection failed');
-		}	
 
 	// 	$query = "INSERT INTO users (id, user_name, email, password) VALUES ('$username', '$email', 'password');";
 

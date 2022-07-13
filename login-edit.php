@@ -7,27 +7,32 @@
 		$email = $_POST['email'];
 		$password = $_POST['password'];
 		$username = $_POST['userName'];
-		// echo $email;
-		// echo $password;
+		$id = $_POST["id"];
+
+		$update_query = "UPDATE users SET user_name = '$username', email = '$email',  password = '$password' WHERE id = $id";
 
 
-		$query = "INSERT INTO users (id, user_name, email, password) VALUES ('$username', '$email', 'password');";
+		$update_query = 'UPDATE users SET'; 
+		$update_query .= " user_name = '$username',";
+		$update_query .= " email = '$email',";
+		$update_query .= " password = '$password'";
+		$update_query .= " WHERE id = $id";
+		
+		$update_query_result = mysqli_query($connection, $update_query);
+
+		if (!$update_query_result) {
+			die('Query failed '.mysqli_error());
+		}
+
+	}
+
+	$query = 'SELECT * FROM users;';
 
 		$query_result = mysqli_query($connection, $query);
 
 		if (!$query_result) {
 			die('Query failed '.mysqli_error());
 		}
-
-
-	}
-
-
-
-
-
-
-
 
 ?>
 
@@ -40,7 +45,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   </head>
   <body>
-    <form action="login.php" method="post">
+    <form action="login-edit.php" method="post">
       <div class="mb-3">
 	    <label for="exampleInputUserName1" class="form-label">User Name</label>
 	    <input type="text" class="form-control" name="userName" id="exampleInputUserName1" aria-describedby="nameHelp" placeholder="Enter your name">
@@ -56,10 +61,21 @@
 	    <input type="password" class="form-control" name="password" id="exampleInputPassword1">
 	  </div>
 	  <div class="mb-3 form-check">
-	    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-	    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+	    <select name="id">
+	    	<?php
+
+
+	    			while ($row = mysqli_fetch_assoc($query_result)) {
+	    						$id = $row['id'];
+	    						echo "<option value='id'>$id</option>";
+
+	    			}
+
+
+	    	?>	
+	    </select>
 	  </div>
-	  <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+	  <button type="submit" class="btn btn-primary" name="submit">Edit</button>
 	</form>
     
 
