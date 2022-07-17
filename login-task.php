@@ -15,9 +15,10 @@
 
 		} else {
 
-					$email = $_POST['email'];
-					$password = $_POST['password'];
-					$username = $_POST['userName'];
+					$email = mysqli_real_escape_string($connection, $_POST['email']);
+					$password = mysqli_real_escape_string($connection, $_POST['password']);
+					$password = password_hash($password, PASSWORD_DEFAULT);
+					$username = mysqli_real_escape_string($connection, $_POST['userName']);
 					
 
 					$select_query = "SELECT * FROM users WHERE email = '$email'";
@@ -32,8 +33,8 @@
 							if (!$query_result) {
 								die('Query failed '.mysqli_error());
 							} else {
-								$_SESSION['email'] = $email;
-								header("Location: session-and-cookies.php");
+								// $_SESSION['email'] = $email;
+								// header("Location: session-and-cookies.php");
 								echo "You are signed up";
 							}
 					}
