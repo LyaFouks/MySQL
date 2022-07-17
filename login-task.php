@@ -1,4 +1,8 @@
 <?php
+	
+	session_start();
+	// echo $_SESSION['user_name'];
+
 
 	include "db-connection.php";
 
@@ -28,6 +32,8 @@
 							if (!$query_result) {
 								die('Query failed '.mysqli_error());
 							} else {
+								$_SESSION['email'] = $email;
+								header("Location: session-and-cookies.php");
 								echo "You are signed up";
 							}
 					}
